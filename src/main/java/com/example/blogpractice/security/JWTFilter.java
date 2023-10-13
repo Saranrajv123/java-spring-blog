@@ -2,6 +2,7 @@ package com.example.blogpractice.security;
 
 import com.example.blogpractice.respository.UserRepository;
 import com.example.blogpractice.services.UserDetailsServiceImpl;
+import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -37,24 +38,33 @@ public class JWTFilter extends OncePerRequestFilter {
             HttpServletResponse response,
             FilterChain filterChain
     ) throws ServletException, IOException {
-//        if (authHeader != null && !authHeader.isBlank() && authHeader.startsWith("Bearer ")) {
-//        }
-        String token = getJWTTokenFromRequest(request);
-        System.out.println("toekn from do filter"+ token);
+        String authHeader = request.getHeader("Authorization");
 
-        if (StringUtils.hasText(token) && jwtProvider.validateToken(token)) {
-            String username = jwtProvider.getUsernameFromJWT(token);
-            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
-                    userDetails,
-                    null,
-                    userDetails.getAuthorities()
-            );
+        System.out.println("authHeader " + authHeader);
 
-            usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-            SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+        if (authHeader != null && !authHeader.isBlank() && authHeader.startsWith("Bearer ")) {
+            String token = authHeader.substring(7, authHeader.length());
+
+            if (token.isBlank()) {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid JWT token in Bearer Header");
+
+            } else {
+                try {
+                    String username = jwtProvider.getUsernameFromJWT(token);
+                    UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+                    UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
+                            userDetails,
+                            null,
+                            userDetails.getAuthorities()
+                    );
+
+                    usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+                } catch (JwtException exception) {
+                    response.sendError(HttpServletResponse.SC_BAD_REQUEST, exception.getMessage());
+                }
+            }
         }
-
         filterChain.doFilter(request, response);
     }
 

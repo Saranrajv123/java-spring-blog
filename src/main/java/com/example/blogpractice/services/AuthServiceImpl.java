@@ -44,18 +44,20 @@ public class AuthServiceImpl {
 
     public RegisterDTO registerUser(RegisterDTO registerDTO) {
         if (userRepository.existsByUsername(registerDTO.getUsername())) {
-            throw new BlogAPIException(HttpStatus.BAD_REQUEST, "user not found");
+            throw new AppException("Username already found");
         }
         if (userRepository.existsByEmail(registerDTO.getEmail())) {
-            throw new BlogAPIException(HttpStatus.BAD_REQUEST, "Email already taken!");
+            throw new AppException("Email already taken!");
         }
 
-        String email = registerDTO.getEmail().toLowerCase();
-        String firstName = registerDTO.getFirstName();
-        String lastName = registerDTO.getLastName();
-        String username = registerDTO.getUsername();
-        String password = passwordEncoder.encode(registerDTO.getPassword());
-        User newUser = new User(firstName, lastName, email, username, password);
+//        String email = registerDTO.getEmail().toLowerCase();
+//        String firstName = registerDTO.getFirstName();
+//        String lastName = registerDTO.getLastName();
+//        String username = registerDTO.getUsername();
+//        String password = passwordEncoder.encode(registerDTO.getPassword());
+//        User newUser = new User(firstName, lastName, email, username, password);
+
+        User user = modelMapper.map(registerDTO, User.class);
 
         Set<Role> roles = new HashSet<>();
         if (userRepository.count() == 0) {
@@ -70,29 +72,29 @@ public class AuthServiceImpl {
                     .orElseThrow(() -> new AppException(AppConstants.USER_ROLE_NOT_SET)));
         }
 
-        newUser.setRoles(roles);
-        User registeredUser = userRepository.save(newUser);
+        user.setRoles(roles);
+        User registeredUser = userRepository.save(user);
         return modelMapper.map(registeredUser, RegisterDTO.class);
     }
 
     public LoginResponse login(LoginDTO loginDTO) {
         User user = userRepository.findByUsername(loginDTO.getUsername())
                 .orElseThrow(() -> new AppException("User not found"));
-        System.out.println("username " + user);
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginDTO.getUsername(), loginDTO.getPassword())
         );
 
-        System.out.println("authenticate " + authentication.getName());
+        System.out.println("authenticate get credentials" + authentication);
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        String token = jwtProvider.generateToken(authentication);
-        Map<String, Object> response = new HashMap<>();
-        response.put("token", token);
-        response.put("user", user);
+        String token = jwtProvider.generateToken(user.getEmail());
+        LoginResponse res = modelMapper.map(user, LoginResponse.class);
+        res.setToken(token);
 
-        return modelMapper.map(response, LoginResponse.class);
+        System.out.println("res " + res);
+
+        return modelMapper.map(res, LoginResponse.class);
 
     }
 }

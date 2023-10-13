@@ -16,12 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/blog/users")
+@RequestMapping("/api/blog")
 public class AuthController {
 
     @Autowired
     private AuthServiceImpl authService;
-
 
     @PostMapping("/register")
     public ResponseEntity<RegisterDTO> registerController(@RequestBody @Valid RegisterDTO registerDTO) {
@@ -33,11 +32,9 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> loginController(@RequestBody @Valid LoginDTO loginDTO) {
-        System.out.println("loginDTO " + loginDTO);
         return new ResponseEntity<>(
                 authService.login(loginDTO),
                 HttpStatus.OK
         );
-
     }
 }

@@ -16,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -49,8 +50,7 @@ public class UserServiceImpl {
         user.setRoles(roles);
         user.setPassword(passwordEncoder.encode(createUserRequestDTO.getPassword()));
         User savedUser = userRepository.save(user);
-        CreateUserRequestDTO createUserRequestDTO1 = modelMapper.map(user, CreateUserRequestDTO.class);
-        return createUserRequestDTO;
+        return modelMapper.map(savedUser, CreateUserRequestDTO.class);
     }
 
     public CreateUserRequestDTO updateUser(String id, CreateUserRequestDTO createUserRequestDTO) {
@@ -60,9 +60,24 @@ public class UserServiceImpl {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         System.out.println("suth " + auth.getDetails());
         if (auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN")) || auth.getName().equals(user.getUsername())) {
-
+//            User user1 = modelMapper.map(createUserRequestDTO, User.class);
+            user.setAddress(createUserRequestDTO.getAddress());
+            user.setUsername(createUserRequestDTO.getUsername());
+            user.setEmail(createUserRequestDTO.getUsername());
+            user.setFirstName(createUserRequestDTO.getFirstName());
+            user.setLastName(createUserRequestDTO.getLastName());
+            user.setPhone(createUserRequestDTO.getPhone());
+            user.setPassword(passwordEncoder.encode(createUserRequestDTO.getPassword()));
+            User updatedUser = userRepository.save(user);
+            return modelMapper.map(updatedUser, CreateUserRequestDTO.class);
         }
 
-        return null;
+        throw new AppException("Something went wrong!");
+
+
+    }
+
+    public List<User> getUsers() {
+        return userRepository.findAll();
     }
 }

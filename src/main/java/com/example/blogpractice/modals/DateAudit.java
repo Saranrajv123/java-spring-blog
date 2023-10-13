@@ -19,7 +19,7 @@ import java.time.Instant;
 )
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public class DateAudit implements Serializable {
+public abstract class DateAudit implements Serializable {
 
     @CreatedDate
     @Column(nullable = false, updatable = false)

@@ -1,6 +1,7 @@
 package com.example.blogpractice.security;
 
 
+import com.example.blogpractice.modals.User;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -25,15 +26,9 @@ public class JWTProvider {
     @Value("${jwtExpirationInMs}")
     private String jwtExpired;
 
-    public String generateToken(Authentication authentication) {
-        String username = authentication.getName();
-        System.out.println("username "+ username);
-//        Date expiryDate = new Date(now.getTime() + jwtExpired);
-//                new Date(now.getTime() + jwtExpired);
-
-
+    public String generateToken(String authentication) {
         return Jwts.builder()
-                .setSubject(username)
+                .setSubject(String.valueOf(authentication))
                 .setIssuedAt(new Date())
 //                .setExpiration(expiryDate)
                 .signWith(key())
@@ -41,6 +36,8 @@ public class JWTProvider {
     }
 
     public Boolean validateToken(String token) {
+
+        System.out.println("token from validation" + token);
         try {
             Jwts.parserBuilder()
                     .setSigningKey(key())
@@ -66,7 +63,7 @@ public class JWTProvider {
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(key())
                 .build()
-                .parseClaimsJwt(token)
+                .parseClaimsJws(token)
                 .getBody();
 
         return claims.getSubject();

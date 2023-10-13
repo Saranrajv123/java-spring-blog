@@ -29,4 +29,7 @@ public class AppConstants {
 
     public static final String YOU_DON_T_HAVE_PERMISSION_TO_MAKE_THIS_OPERATION = "You don't have permission to make this operation";
     public static final String USER_ROLE_NOT_SET = "User role not set";
+    public static final String[] PUBLIC_URLS = { "/v3/api-docs/blog**", "/swagger-ui/blog/**", "/api/blog/register/**", "/api/blog/login" };
+    public static final String[] USER_URLS = { "/api/blog/public/**" };
+    public static final String[] ADMIN_URLS = { "/api/blog/admin/**" };
 }

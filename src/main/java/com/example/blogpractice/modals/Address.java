@@ -1,5 +1,6 @@
 package com.example.blogpractice.modals;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -40,6 +41,7 @@ public class Address extends UserDateAudit {
     @Size(min = 2, message = "country name must contain at least 5 characters")
     private String country;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "address")
     private User user;
 

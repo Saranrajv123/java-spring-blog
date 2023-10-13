@@ -2,6 +2,8 @@ package com.example.blogpractice.config;
 
 import com.example.blogpractice.security.JWTFilter;
 import com.example.blogpractice.services.UserDetailsServiceImpl;
+import com.example.blogpractice.utils.AppConstants;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,16 +34,20 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .csrf(csrf -> csrf.disable())
-                .exceptionHandling(exception -> exception.authenticationEntryPoint(
-                        (request, response, authException) -> {
-
-                        }
-                ))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authRequest -> {
-                    authRequest.requestMatchers("/api/blog/**").permitAll();
+//                    authRequest.requestMatchers("/api/blog/**").permitAll();
+                    authRequest.requestMatchers(AppConstants.PUBLIC_URLS).permitAll();
+                    authRequest.requestMatchers(AppConstants.USER_URLS).hasAnyAuthority("ROLE_ADMIN", "ROLE_USER");
+                    authRequest.requestMatchers(AppConstants.ADMIN_URLS).hasAuthority("ROLE_ADMIN");
                     authRequest.anyRequest().authenticated();
-                });
+                })
+                .exceptionHandling(exception -> exception.authenticationEntryPoint(
+                        (request, response, authException) -> {
+                            System.out.println("authException " + authException);
+                            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+                        }
+                ));
 
         httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();

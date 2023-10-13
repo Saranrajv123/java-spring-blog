@@ -1,5 +1,6 @@
 package com.example.blogpractice.controllers;
 
+import com.example.blogpractice.modals.User;
 import com.example.blogpractice.payloads.CreateUserRequestDTO;
 import com.example.blogpractice.services.UserServiceImpl;
 import jakarta.validation.Valid;
@@ -9,14 +10,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/api/blog/users")
+@RequestMapping("/api/blog")
 public class UserController {
 
     @Autowired
     private UserServiceImpl userService;
 
-    @PostMapping("/create-user")
+    @PostMapping("/admin/create-user")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<CreateUserRequestDTO> createUserController(@RequestBody @Valid CreateUserRequestDTO createUserRequestDTO) {
         return new ResponseEntity<>(
@@ -25,17 +28,25 @@ public class UserController {
         );
     }
 
+    @GetMapping("/admin/users")
+    public ResponseEntity<List<User>> getUsersController() {
+        return new ResponseEntity<>(
+                userService.getUsers(),
+                HttpStatus.OK
 
-    @PutMapping("/update-user/{id}")
+        );
+    }
+
+
+    @PutMapping("/public/update-user/{id}")
     public ResponseEntity<?> updateUser(
             @PathVariable String id,
             @RequestBody @Valid CreateUserRequestDTO createUserRequestDTO
 
     ) {
-        userService.updateUser(id, createUserRequestDTO);
-
-        return null;
-
-
+        return new ResponseEntity<> (
+                userService.updateUser(id, createUserRequestDTO),
+                HttpStatus.OK
+        );
     }
 }
