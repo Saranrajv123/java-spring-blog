@@ -80,4 +80,67 @@ public class UserServiceImpl {
     public List<User> getUsers() {
         return userRepository.findAll();
     }
+
+    public String deleteUser(String id) {
+        User user = userRepository.findById(id).orElseThrow(
+                () -> new AppException("User not found")
+        );
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))
+                || !authentication.getName().equals(user.getUsername())
+        ) {
+            throw new AppException("Access denied");
+        }
+        userRepository.deleteById(id);
+        return "user deleted successfully " + " " + id;
+    }
+
+    public String giveAdminAccessToUser(String id) {
+        User user = userRepository.findById(id).orElseThrow(
+                () -> new AppException("User not found")
+        );
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))
+                || !authentication.getName().equals(user.getUsername())
+        ) {
+            throw new AppException("Access denied");
+        }
+
+        Set<Role> roles = new HashSet<>();
+        roles.add(
+        roleRepository.findByName("ROLE_ADMIN").orElseThrow(
+                () -> new AppException("Role not found!")
+        ));
+        roles.add(
+        roleRepository.findByName("ROLE_USER").orElseThrow(
+                () -> new AppException("Role not found!")
+        ));
+        user.setRoles(roles);
+        User user1 = userRepository.save(user);
+        return "You gave admin access to user " + user1.getId();
+    }
+
+    public String revertAdminAccessToUser(String id) {
+        User user = userRepository.findById(id).orElseThrow(
+                () -> new AppException("User not found")
+        );
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))
+                || !authentication.getName().equals(user.getUsername())
+        ) {
+            throw new AppException("Access denied");
+        }
+
+        Set<Role> roles = new HashSet<>();
+        roles.add(
+                roleRepository.findByName("ROLE_USER").orElseThrow(
+                        () -> new AppException("Role not found!")
+                ));
+        user.setRoles(roles);
+        User user1 = userRepository.save(user);
+        return "You revert admin access to user " + user1.getId();
+    }
 }
