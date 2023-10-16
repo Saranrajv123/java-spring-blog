@@ -31,6 +31,7 @@ public class UserServiceImpl {
     private RoleRepository roleRepository;
 
     public CreateUserRequestDTO createUser(CreateUserRequestDTO createUserRequestDTO) {
+        System.out.println("createUser " + createUserRequestDTO);
         if (userRepository.existsByUsername(createUserRequestDTO.getUsername())) {
             throw new AppException("Username is already taken");
         }

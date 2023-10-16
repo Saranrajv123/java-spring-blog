@@ -1,9 +1,8 @@
 {
 	"info": {
-		"_postman_id": "820414b4-99b8-4bef-b2a1-c7699657121a",
+		"_postman_id": "e9dd20e8-f3ea-47d2-ac3a-a42d9af4d19f",
 		"name": "Spring_Basic",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "30096066"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
@@ -16,7 +15,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"firstName\": \"saranraj\",\n\t\"lastName\": \"viswanathan\",\n\t\"username\": \"saran123@username\",\n\t\"password\": \"saran123@password\",\n\t\"email\": \"saran@gmail.com\",\n    \"phone\": \"9090909094\"\n}",
+							"raw": "{\n\t\"firstName\": \"java development\",\n\t\"lastName\": \"java development toolkit\",\n\t\"username\": \"java@username\",\n\t\"password\": \"java@password\",\n\t\"email\": \"java@gmail.com\",\n    \"phone\": \"9090909091\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -24,7 +23,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/blog/users/register",
+							"raw": "http://localhost:8080/api/blog/register",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -33,7 +32,6 @@
 							"path": [
 								"api",
 								"blog",
-								"users",
 								"register"
 							]
 						}
@@ -47,7 +45,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"saranraj@gmail.com\",\n    \"password\": \"saranraj@password\"\n}",
+							"raw": "{\n    \"email\": \"java@gmail.com\",\n    \"password\": \"java@password\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -76,13 +74,13 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJqYXZhQGdtYWlsLmNvbSIsImlhdCI6MTY5NzQzODUzMH0.RkqU-0K3lmR3P4mzvlhkV76osqX7VgOZXA5qXVsSJLE7H4iu2myHZAtfifDEatpL",
+								"value": "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJqYXZhQGdtYWlsLmNvbSIsImlhdCI6MTY5NzQ1NDgxN30.AKkysyvGXwBOAjTvNGcfptIgr9UMn2Tc_pLCFwvKSzxz6CFF6ADIXylDV5WXIfGU",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"firstName\": \"Saranraj\",\n\t\"lastName\": \"Viswanathan\",\n\t\"username\": \"saranraj@username\",\n\t\"password\": \"saranraj@password\",\n\t\"email\": \"saranraj@gmail.com\",\n\t\"address\": {\n\t\t\"street\": \"Victor Plains\",\n        \"buildName\": \"victor flat\",\n\t\t\"city\": \"Wisokyburgh\",\n\t\t\"state\": \"New york\",\n\t\t\"zipcode\": \"90566-7772\",\n        \"country\": \"US\"\n\t},\n\t\"phone\": \"9090909095\"\n}",
+							"raw": "{\n\t\"firstName\": \"Saranraj\",\n\t\"lastName\": \"Viswanathan\",\n\t\"username\": \"saranraj.viswanathan@username\",\n\t\"password\": \"saranraj@password\",\n\t\"email\": \"saranraj.viswanathan@gmail.com\",\n\t\"address\": {\n\t\t\"street\": \"Victor Plains\",\n        \"buildName\": \"victor flat\",\n\t\t\"city\": \"Wisokyburgh\",\n\t\t\"state\": \"New york\",\n\t\t\"zipcode\": \"90566-7772\",\n        \"country\": \"US\"\n\t},\n\t\"phone\": \"9090909095\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -113,13 +111,13 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJqYXZhQGdtYWlsLmNvbSIsImlhdCI6MTY5NzQ0MTY5OX0.Y3AMs_x7v5MjJf5Sb9gPgza_NlN8FgA7ubJPRCaTg9qGF5f32jZ73R6zRzbjQUfL",
+								"value": "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJqYXZhQGdtYWlsLmNvbSIsImlhdCI6MTY5NzQ1NDgxN30.AKkysyvGXwBOAjTvNGcfptIgr9UMn2Tc_pLCFwvKSzxz6CFF6ADIXylDV5WXIfGU",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"firstName\": \"spring security\",\n\t\"lastName\": \"security\",\n\t\"username\": \"spring.security@username\",\n\t\"password\": \"spring.security@password\",\n\t\"email\": \"spring.security@gmail.com\",\n\t\"address\": {\n\t\t\"street\": \"Victor Plains\",\n        \"buildName\": \"flat CF3\",\n\t\t\"city\": \"Wisokyburgh\",\n\t\t\"state\": \"Los angeles\",\n\t\t\"zipcode\": \"90566-7772\",\n        \"country\": \"US\"\n\t},\n\t\"phone\": \"9090909094\"\n}",
+							"raw": "{\n\t\"firstName\": \"Saran\",\n\t\"lastName\": \"Viswanathan\",\n\t\"username\": \"saran@username\",\n\t\"password\": \"saranraj@password\",\n\t\"email\": \"saranraj@gmail.com\",\n\t\"address\": {\n\t\t\"street\": \"Victor Plains\",\n        \"buildName\": \"victor flat\",\n\t\t\"city\": \"Wisokyburgh\",\n\t\t\"state\": \"New york\",\n\t\t\"zipcode\": \"90566-7772\",\n        \"country\": \"US\"\n\t},\n\t\"phone\": \"9090909095\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -151,7 +149,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJzYXJhbnJhakBnbWFpbC5jb20iLCJpYXQiOjE2OTc0NTAwMTd9.7KVc9mmgXG1AQfJ7IM96b4M_ahmzryFhJiUCl2VWAu--0O4H33kswfb9RRqhWICN",
+								"value": "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJqYXZhQGdtYWlsLmNvbSIsImlhdCI6MTY5NzQ1NDgxN30.AKkysyvGXwBOAjTvNGcfptIgr9UMn2Tc_pLCFwvKSzxz6CFF6ADIXylDV5WXIfGU",
 								"type": "text"
 							}
 						],
@@ -195,6 +193,131 @@
 								"public",
 								"delete-user",
 								"c754cf03-229f-4dff-b490-9f89e3f1b0f7"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Post",
+			"item": [
+				{
+					"name": "CreatePost",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJqYXZhQGdtYWlsLmNvbSIsImlhdCI6MTY5NzQ1NTE3NH0.yM9k0q7Vnghj8AfnlV6K6Uhu2hzbnLBNiKwHyAF_kuEBOqbzvwmlRN8nLS8ljNtR",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"FIRST POST\",\r\n\t\"body\": \"quia et suscipit suscipit recusandae consequuntur expedita et cum reprehenderit molestiae ut ut quas totam nostrum rerum est autem sunt rem eveniet architecto\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllPosts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJqYXZhQGdtYWlsLmNvbSIsImlhdCI6MTY5NzQ1NTE3NH0.yM9k0q7Vnghj8AfnlV6K6Uhu2hzbnLBNiKwHyAF_kuEBOqbzvwmlRN8nLS8ljNtR",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/api/blog/post/admin/get-posts",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"blog",
+								"post",
+								"admin",
+								"get-posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdatePost",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJqYXZhQGdtYWlsLmNvbSIsImlhdCI6MTY5NzQ1NTE3NH0.yM9k0q7Vnghj8AfnlV6K6Uhu2hzbnLBNiKwHyAF_kuEBOqbzvwmlRN8nLS8ljNtR",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"FIRST POST updated by java@user\",\r\n\t\"body\": \"quia et suscipit suscipit recusandae consequuntur expedita et cum reprehenderit molestiae ut ut\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/blog/post/public/update-post/c847364f-fe02-45aa-aa9f-21634a9d4051",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"blog",
+								"post",
+								"public",
+								"update-post",
+								"c847364f-fe02-45aa-aa9f-21634a9d4051"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetPost",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJqYXZhQGdtYWlsLmNvbSIsImlhdCI6MTY5NzQ1NTE3NH0.yM9k0q7Vnghj8AfnlV6K6Uhu2hzbnLBNiKwHyAF_kuEBOqbzvwmlRN8nLS8ljNtR",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/api/blog/post/public/c847364f-fe02-45aa-aa9f-21634a9d4051",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"blog",
+								"post",
+								"public",
+								"c847364f-fe02-45aa-aa9f-21634a9d4051"
 							]
 						}
 					},

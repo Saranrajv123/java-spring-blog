@@ -43,6 +43,7 @@ public class AuthServiceImpl {
     private RoleRepository roleRepository;
 
     public RegisterDTO registerUser(RegisterDTO registerDTO) {
+        System.out.println("registerDTO" + registerDTO);
         if (userRepository.existsByUsername(registerDTO.getUsername())) {
             throw new AppException("Username already found");
         }
@@ -56,6 +57,7 @@ public class AuthServiceImpl {
 //        String username = registerDTO.getUsername();
 //        String password = passwordEncoder.encode(registerDTO.getPassword());
 //        User newUser = new User(firstName, lastName, email, username, password);
+        registerDTO.setPassword(passwordEncoder.encode(registerDTO.getPassword()));
 
         User user = modelMapper.map(registerDTO, User.class);
 

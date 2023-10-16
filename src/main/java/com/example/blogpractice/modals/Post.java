@@ -11,6 +11,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Comments;
+
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -18,7 +21,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "posts", uniqueConstraints = {
-        @UniqueConstraint(columnNames = { "title" })
+        @UniqueConstraint(columnNames = {"title"})
 })
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Post extends UserDateAudit {
@@ -35,7 +38,8 @@ public class Post extends UserDateAudit {
 
     @NotBlank
     @NotEmpty
-    @Size(min = 5, max = 50, message = "body should be min 5 to max 50 characters")
+    @Size(min = 5, max = 200, message = "body should be min 5 to max 200 characters")
+    @Column(name = "body", columnDefinition = "VARCHAR(1000)")
     private String body;
 
     @JsonIgnore
@@ -43,8 +47,8 @@ public class Post extends UserDateAudit {
     @JoinColumn(name = "user_id")
     private User user;
 
-
-
-
+    @JsonIgnore
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments;
 
 }
