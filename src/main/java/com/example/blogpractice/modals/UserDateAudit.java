@@ -1,5 +1,6 @@
 package com.example.blogpractice.modals;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
@@ -12,15 +13,17 @@ import org.springframework.data.annotation.LastModifiedBy;
 @MappedSuperclass
 @EqualsAndHashCode(callSuper = true)
 @JsonIgnoreProperties(
-        value = { "createdAt", "updatedAt" },
+        value = { "createdBy", "updatedBy" },
         allowGetters = true
 )
-public class UserDateAudit extends DateAudit {
+public abstract class UserDateAudit extends DateAudit {
 
+    @JsonIgnore
     @CreatedBy
     @Column(updatable = false)
     private String createdBy;
 
+    @JsonIgnore
     @LastModifiedBy
     private String updatedBy;
 }

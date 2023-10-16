@@ -86,9 +86,16 @@ public class UserServiceImpl {
                 () -> new AppException("User not found")
         );
 
+        System.out.println("user " + user);
+
+
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (!authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))
-                || !authentication.getName().equals(user.getUsername())
+        System.out.println(authentication);
+        System.out.println(authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN")));
+        if (
+                !authentication.getName().equals(user.getEmail()) ||
+                !authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))
         ) {
             throw new AppException("Access denied");
         }

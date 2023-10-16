@@ -40,7 +40,7 @@ public class UserController {
 
 
     @PutMapping("/public/update-user/{id}")
-    public ResponseEntity<?> updateUser(
+    public ResponseEntity<CreateUserRequestDTO> updateUser(
             @PathVariable String id,
             @RequestBody @Valid CreateUserRequestDTO createUserRequestDTO
 

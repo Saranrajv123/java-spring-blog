@@ -45,6 +45,4 @@ public class Address extends UserDateAudit {
     @OneToOne(mappedBy = "address")
     private User user;
 
-
-
 }

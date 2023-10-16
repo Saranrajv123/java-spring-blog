@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class LoginDTO {
     @NotEmpty
     @NotBlank
-    private String username;
+    private String email;
     @NotBlank
     @NotEmpty
     private String password;

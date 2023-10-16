@@ -37,7 +37,7 @@ public class JWTProvider {
 
     public Boolean validateToken(String token) {
 
-        System.out.println("token from validation" + token);
+//        System.out.println("token from validation" + token);
         try {
             Jwts.parserBuilder()
                     .setSigningKey(key())
@@ -59,14 +59,17 @@ public class JWTProvider {
     }
 
     public String getUsernameFromJWT(String token) {
-        System.out.println("token " + token);
+//        System.out.println("token " + token);
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(key())
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
 
-        return claims.getSubject();
+        String username =  claims.getSubject();
+
+        System.out.println("username from claim " + username );
+        return username;
     }
 
 

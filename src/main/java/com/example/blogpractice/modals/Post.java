@@ -1,6 +1,7 @@
 package com.example.blogpractice.modals;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -37,6 +38,7 @@ public class Post extends UserDateAudit {
     @Size(min = 5, max = 50, message = "body should be min 5 to max 50 characters")
     private String body;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;

@@ -1,0 +1,206 @@
+{
+	"info": {
+		"_postman_id": "820414b4-99b8-4bef-b2a1-c7699657121a",
+		"name": "Spring_Basic",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30096066"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "RegisterUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"firstName\": \"saranraj\",\n\t\"lastName\": \"viswanathan\",\n\t\"username\": \"saran123@username\",\n\t\"password\": \"saran123@password\",\n\t\"email\": \"saran@gmail.com\",\n    \"phone\": \"9090909094\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/blog/users/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"blog",
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"saranraj@gmail.com\",\n    \"password\": \"saranraj@password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/blog/login",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"blog",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateUser",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJqYXZhQGdtYWlsLmNvbSIsImlhdCI6MTY5NzQzODUzMH0.RkqU-0K3lmR3P4mzvlhkV76osqX7VgOZXA5qXVsSJLE7H4iu2myHZAtfifDEatpL",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"firstName\": \"Saranraj\",\n\t\"lastName\": \"Viswanathan\",\n\t\"username\": \"saranraj@username\",\n\t\"password\": \"saranraj@password\",\n\t\"email\": \"saranraj@gmail.com\",\n\t\"address\": {\n\t\t\"street\": \"Victor Plains\",\n        \"buildName\": \"victor flat\",\n\t\t\"city\": \"Wisokyburgh\",\n\t\t\"state\": \"New york\",\n\t\t\"zipcode\": \"90566-7772\",\n        \"country\": \"US\"\n\t},\n\t\"phone\": \"9090909095\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/blog/admin/create-user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"blog",
+								"admin",
+								"create-user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateUser",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJqYXZhQGdtYWlsLmNvbSIsImlhdCI6MTY5NzQ0MTY5OX0.Y3AMs_x7v5MjJf5Sb9gPgza_NlN8FgA7ubJPRCaTg9qGF5f32jZ73R6zRzbjQUfL",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"firstName\": \"spring security\",\n\t\"lastName\": \"security\",\n\t\"username\": \"spring.security@username\",\n\t\"password\": \"spring.security@password\",\n\t\"email\": \"spring.security@gmail.com\",\n\t\"address\": {\n\t\t\"street\": \"Victor Plains\",\n        \"buildName\": \"flat CF3\",\n\t\t\"city\": \"Wisokyburgh\",\n\t\t\"state\": \"Los angeles\",\n\t\t\"zipcode\": \"90566-7772\",\n        \"country\": \"US\"\n\t},\n\t\"phone\": \"9090909094\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/blog/public/update-user/3c2224c8-41a7-46ff-a6f1-05a6df3805c6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"blog",
+								"public",
+								"update-user",
+								"3c2224c8-41a7-46ff-a6f1-05a6df3805c6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUsers",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJzYXJhbnJhakBnbWFpbC5jb20iLCJpYXQiOjE2OTc0NTAwMTd9.7KVc9mmgXG1AQfJ7IM96b4M_ahmzryFhJiUCl2VWAu--0O4H33kswfb9RRqhWICN",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/blog/admin/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"blog",
+								"admin",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteUser",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJqYXZhQGdtYWlsLmNvbSIsImlhdCI6MTY5NzQ0MTY5OX0.Y3AMs_x7v5MjJf5Sb9gPgza_NlN8FgA7ubJPRCaTg9qGF5f32jZ73R6zRzbjQUfL",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/api/blog/public/delete-user/c754cf03-229f-4dff-b490-9f89e3f1b0f7",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"blog",
+								"public",
+								"delete-user",
+								"c754cf03-229f-4dff-b490-9f89e3f1b0f7"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

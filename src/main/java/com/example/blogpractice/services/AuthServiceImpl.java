@@ -78,23 +78,33 @@ public class AuthServiceImpl {
     }
 
     public LoginResponse login(LoginDTO loginDTO) {
-        User user = userRepository.findByUsername(loginDTO.getUsername())
+//        System.out.println("login " + loginDTO.getEmail());
+        User user = userRepository.findByEmail(loginDTO.getEmail())
                 .orElseThrow(() -> new AppException("User not found"));
+        System.out.println("user from login " + user.getEmail());
+        System.out.println("user from login " + user.getPassword());
 
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginDTO.getUsername(), loginDTO.getPassword())
-        );
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(loginDTO.getEmail(), loginDTO.getPassword())
+            );
 
-        System.out.println("authenticate get credentials" + authentication);
+            System.out.println("authenticate get credentials" + authentication);
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String token = jwtProvider.generateToken(user.getEmail());
-        LoginResponse res = modelMapper.map(user, LoginResponse.class);
-        res.setToken(token);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            String token = jwtProvider.generateToken(user.getEmail());
+            System.out.println("token " + token);
+            LoginResponse res = modelMapper.map(user, LoginResponse.class);
+            res.setToken(token);
 
-        System.out.println("res " + res);
+            System.out.println("res " + res);
 
-        return modelMapper.map(res, LoginResponse.class);
+            return modelMapper.map(res, LoginResponse.class);
+
+        } catch (Exception e) {
+            throw new AppException("exception  " + e.getMessage());
+        }
+
 
     }
 }
