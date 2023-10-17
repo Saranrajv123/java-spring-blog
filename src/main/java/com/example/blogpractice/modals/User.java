@@ -7,9 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -70,9 +68,11 @@ public class User extends DateAudit {
     @JoinColumn(name = "address_id")
     private Address address;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Post> posts;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments;
 
     public User(String firstName, String lastName, String email, String username, String password) {
         this.firstName = firstName;
@@ -80,5 +80,17 @@ public class User extends DateAudit {
         this.email = email;
         this.username = username;
         this.password = password;
+    }
+
+    public List<Comment> getComments() {
+        return comments == null ? null : new ArrayList<>();
+    }
+    public void setComments(List<Comment> comments) {
+        if (comments == null) {
+            this.comments = null;
+        } else {
+            this.comments = Collections.unmodifiableList(comments);
+        }
+
     }
 }
