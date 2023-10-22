@@ -1,4 +1,4 @@
-package com.example.blogpractice.services;
+package com.example.blogpractice.services.impl;
 
 import com.example.blogpractice.modals.User;
 import com.example.blogpractice.respository.UserRepository;

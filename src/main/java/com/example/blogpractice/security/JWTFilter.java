@@ -1,7 +1,7 @@
 package com.example.blogpractice.security;
 
 import com.example.blogpractice.respository.UserRepository;
-import com.example.blogpractice.services.UserDetailsServiceImpl;
+import com.example.blogpractice.services.impl.UserDetailsServiceImpl;
 import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -11,10 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -42,7 +40,7 @@ public class JWTFilter extends OncePerRequestFilter {
 
         System.out.println("authHeader " + authHeader);
 
-        if (authHeader != null && !authHeader.isBlank() && authHeader.startsWith("Bearer ")) {
+        if ( authHeader != null && !authHeader.isBlank() && authHeader.startsWith("Bearer ")) {
             String token = authHeader.substring(7, authHeader.length());
 
             if (token.isBlank()) {

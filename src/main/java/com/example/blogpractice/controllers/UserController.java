@@ -2,9 +2,8 @@ package com.example.blogpractice.controllers;
 
 import com.example.blogpractice.modals.User;
 import com.example.blogpractice.payloads.CreateUserRequestDTO;
-import com.example.blogpractice.services.UserServiceImpl;
+import com.example.blogpractice.services.impl.UserServiceImpl;
 import jakarta.validation.Valid;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

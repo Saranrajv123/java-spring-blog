@@ -3,16 +3,13 @@ package com.example.blogpractice.controllers;
 import com.example.blogpractice.modals.Comment;
 import com.example.blogpractice.payloads.CommentRequest;
 import com.example.blogpractice.payloads.response.PagedResponse;
-import com.example.blogpractice.respository.CommentRepository;
-import com.example.blogpractice.services.CommentServiceImpl;
+import com.example.blogpractice.services.impl.CommentServiceImpl;
 import com.example.blogpractice.utils.AppConstants;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/blog")

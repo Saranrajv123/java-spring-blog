@@ -1,4 +1,4 @@
-package com.example.blogpractice.services;
+package com.example.blogpractice.services.impl;
 
 import com.example.blogpractice.exceptions.AppException;
 import com.example.blogpractice.modals.Post;

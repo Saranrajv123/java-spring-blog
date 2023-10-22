@@ -1,4 +1,4 @@
-package com.example.blogpractice.services;
+package com.example.blogpractice.services.impl;
 
 import com.example.blogpractice.exceptions.AppException;
 import com.example.blogpractice.modals.Comment;
@@ -10,6 +10,7 @@ import com.example.blogpractice.respository.CommentRepository;
 import com.example.blogpractice.respository.PostRepository;
 import com.example.blogpractice.respository.RoleRepository;
 import com.example.blogpractice.respository.UserRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,7 +21,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
 public class CommentServiceImpl {
@@ -36,45 +36,39 @@ public class CommentServiceImpl {
 
     public Comment createComment(String id, CommentRequest commentRequest) {
         Post post = postRepository.findById(id).orElseThrow(
-                () -> new AppException("post not found!")
-        );
+                () -> new AppException("post not found!"));
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByEmail(authentication.getName()).orElseThrow(
-                () ->  new AppException("User not Found!")
-        );
-       Comment comment =  new Comment();
-       comment.setBody(commentRequest.getBody());
-       comment.setPost(post);
-       comment.setUser(user);
-       comment.setName(user.getUsername());
-       comment.setEmail(user.getEmail());
+                () -> new AppException("User not Found!"));
+        Comment comment = new Comment();
+        comment.setBody(commentRequest.getBody());
+        comment.setPost(post);
+        comment.setUser(user);
+        comment.setName(user.getUsername());
+        comment.setEmail(user.getEmail());
 
-       return commentRepository.save(comment);
+        return commentRepository.save(comment);
     }
 
     public Comment updateComment(String postId, String commentId, CommentRequest commentRequest) {
         Post post = postRepository.findById(postId).orElseThrow(
-                () -> new AppException("post not found!")
-        );
+                () -> new AppException("post not found!"));
 
         Comment comment = commentRepository.findById(commentId).orElseThrow(
-                () -> new AppException("Comment not found")
-        );
+                () -> new AppException("Comment not found"));
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        User user = userRepository.findByEmail(authentication.getName()).orElseThrow(
-//                () ->  new AppException("User not Found!")
-//        );
+        // User user = userRepository.findByEmail(authentication.getName()).orElseThrow(
+        // () -> new AppException("User not Found!")
+        // );
 
         if (!comment.getPost().getId().equals(post.getId())) {
             throw new AppException("Comment does not belong to this post!");
         }
 
-        if (
-                !comment.getUser().getEmail().equals(authentication.getName()) ||
-                        !authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))
-        ) {
+        if (!comment.getUser().getEmail().equals(authentication.getName()) ||
+                !authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
             throw new AppException("You don't have permission to to update this post");
         }
         comment.setBody(commentRequest.getBody());
@@ -83,12 +77,10 @@ public class CommentServiceImpl {
 
     public String deleteComment(String postId, String commentId) {
         Post post = postRepository.findById(postId).orElseThrow(
-                () -> new AppException("Post not found")
-        );
+                () -> new AppException("Post not found"));
 
         Comment comment = commentRepository.findById(commentId).orElseThrow(
-                () -> new AppException("Comment not found")
-        );
+                () -> new AppException("Comment not found"));
 
         if (!comment.getPost().getId().equals(post.getId())) {
             throw new AppException("Comment does not belong to this post");
@@ -97,8 +89,7 @@ public class CommentServiceImpl {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (!comment.getUser().getEmail().equals(authentication.getName()) ||
-            !authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))
-        ) {
+                !authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
             throw new AppException("You don't have permission to delete this comment");
         }
 

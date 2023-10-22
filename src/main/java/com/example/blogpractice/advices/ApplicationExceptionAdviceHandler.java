@@ -30,4 +30,18 @@ public class ApplicationExceptionAdviceHandler {
         Map<String, String> errorMap = new HashMap<>();
         return errorMap.put("Authentication", exception.getMessage());
     }
+
+//    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+//    @ExceptionHandler(AccessDeniedException.class)
+//    public String accessDeniedExceptionExceptionHandler(AccessDeniedException exception) {
+//        Map<String, String> errorMap = new HashMap<>();
+//        return errorMap.put("Authentication", exception.getMessage());
+//    }
+//
+//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+//    @ExceptionHandler(Exception.class)
+//    public String genericExceptionHandler(Exception exception) {
+//        Map<String, String> errorMap = new HashMap<>();
+//        return errorMap.put("Authentication", exception.getMessage());
+//    }
 }

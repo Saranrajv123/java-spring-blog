@@ -1,12 +1,15 @@
-package com.example.blogpractice.services;
+package com.example.blogpractice.services.impl;
 
 import com.example.blogpractice.exceptions.AppException;
+import com.example.blogpractice.modals.Confirmation;
 import com.example.blogpractice.modals.Role;
 import com.example.blogpractice.modals.User;
 import com.example.blogpractice.payloads.CreateUserRequestDTO;
 import com.example.blogpractice.payloads.response.CreateUserResponseDTO;
+import com.example.blogpractice.respository.ConfirmationRepository;
 import com.example.blogpractice.respository.RoleRepository;
 import com.example.blogpractice.respository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -17,18 +20,18 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl {
-    @Autowired
-    private ModelMapper modelMapper;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private RoleRepository roleRepository;
+    
+    private final ModelMapper modelMapper;
+    private final PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
+    private final ConfirmationRepository confirmationRepository;
 
     public CreateUserRequestDTO createUser(CreateUserRequestDTO createUserRequestDTO) {
         System.out.println("createUser " + createUserRequestDTO);
@@ -50,7 +53,11 @@ public class UserServiceImpl {
         );
         user.setRoles(roles);
         user.setPassword(passwordEncoder.encode(createUserRequestDTO.getPassword()));
+        user.setIsEnabled(false);
         User savedUser = userRepository.save(user);
+        Confirmation confirmationUser = new Confirmation();
+        confirmationUser.setUser(savedUser);
+        Confirmation confirmationSavedUser = confirmationRepository.save(confirmationUser);
         return modelMapper.map(savedUser, CreateUserRequestDTO.class);
     }
 
@@ -74,8 +81,17 @@ public class UserServiceImpl {
         }
 
         throw new AppException("Something went wrong!");
+    }
 
+    public Boolean verifyToken(String token) {
+        Confirmation confirmation = confirmationRepository.findByToken(token);
+        User user = userRepository.findByEmail(confirmation.getUser().getEmail()).orElseThrow(
+                () -> new RuntimeException("User not found")
+        );
 
+        user.setIsEnabled(true);
+        userRepository.save(user);
+        return Boolean.TRUE;
     }
 
     public List<User> getUsers() {

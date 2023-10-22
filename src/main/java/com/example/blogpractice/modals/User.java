@@ -56,6 +56,9 @@ public class User extends DateAudit {
     @Column(name = "phone")
     private String phone;
 
+    @Column(name = "isEnabled")
+    private Boolean isEnabled;
+
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_role",

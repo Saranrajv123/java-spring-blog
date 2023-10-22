@@ -3,7 +3,7 @@ package com.example.blogpractice.controllers;
 import com.example.blogpractice.modals.Post;
 import com.example.blogpractice.payloads.PostRequestDTO;
 import com.example.blogpractice.payloads.response.PagedResponse;
-import com.example.blogpractice.services.PostServiceImpl;
+import com.example.blogpractice.services.impl.PostServiceImpl;
 import com.example.blogpractice.utils.AppConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
